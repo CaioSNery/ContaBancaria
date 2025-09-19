@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ContaBancaria.Entities.Interface
+namespace ContaBancaria.Shared.Entity
 {
     public abstract class Entity
     {

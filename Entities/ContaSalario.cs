@@ -7,7 +7,7 @@ namespace ContaBancaria.Entities
 {
     public class ContaSalario : Conta
     {
-        public ContaSalario()
+        public ContaSalario() : base(Guid.NewGuid())
         {
             CartaoCredito = false;
             CartaoDebito = true;

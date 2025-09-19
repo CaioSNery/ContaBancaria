@@ -7,7 +7,7 @@ namespace ContaBancaria.Entities
 {
     public class ContaCorrente : Conta
     {
-        public ContaCorrente()
+        public ContaCorrente() : base(Guid.NewGuid())
         {
             CartaoCredito = true;
             CartaoDebito = true;

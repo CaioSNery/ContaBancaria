@@ -7,7 +7,7 @@ namespace ContaBancaria.Entities
 {
     public class ContaPoupanca : Conta
     {
-        public ContaPoupanca()
+        public ContaPoupanca(): base(Guid.NewGuid())
         {
             CartaoCredito = false;
             CartaoDebito = true;

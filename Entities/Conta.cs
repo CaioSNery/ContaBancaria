@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ContaBancaria.Entities.Interface;
+
 using ContaBancaria.Enums;
+using ContaBancaria.Shared.Entity;
 
 namespace ContaBancaria.Entities
 {
@@ -21,6 +18,12 @@ namespace ContaBancaria.Entities
         public string Pix { get; set; } = string.Empty;
         public DateTime DataAbertura { get; set; }
         public ETiposContas TipoConta { get; set; }
+
+        public string GerarNumeroConta()
+        {
+            Random rnd = new Random();
+            return rnd.Next(100000, 999999).ToString();
+        }
 
 
         public abstract void Depositar(decimal valor);
