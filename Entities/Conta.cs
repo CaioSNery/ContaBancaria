@@ -15,7 +15,7 @@ namespace ContaBancaria.Entities
         public decimal Saldo { get; set; }
         public bool CartaoCredito { get; protected set; } = false;
         public bool CartaoDebito { get; protected set; } = false;
-        public string Pix { get; set; } = string.Empty;
+        public string? Pix { get; set; }
         public DateTime DataAbertura { get; set; }
         public ETiposContas TipoConta { get; set; }
 

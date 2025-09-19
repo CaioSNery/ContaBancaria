@@ -8,12 +8,29 @@ namespace ContaBancaria.Entities
 {
     public sealed class Cliente : Entity
     {
-        public Nome Nome { get; }
-        public Cpf Cpf { get; }
+        public Nome Nome { get; private set; }
+        public Cpf Cpf { get; private set; }
         public DateTime DataNascimento { get; set; }
-        public Telefone Telefone { get; }
-        public Endereço Endereco { get; }
+        public Telefone Telefone { get; private set; }
+        public Endereço Endereco { get; private set; }
         public Conta Conta { get; private set; }
+        public ETiposContas TipoConta { get; private set; }
+
+        public void AtualizarDados(string primeiroNome, string sobrenome, string cpf, DateTime dataNascimento)
+        {
+            Nome = Nome.Create(primeiroNome, sobrenome);
+            Cpf = Cpf.Create(cpf);
+            DataNascimento = dataNascimento;
+        }
+
+        public void AtualizarTipoDeConta(ETiposContas tipoConta)
+        {
+            if (TipoConta != tipoConta)
+            {
+                TipoConta = tipoConta;
+                Conta = CriarConta(tipoConta);
+            }
+        }
 
 
         private Cliente(
@@ -30,9 +47,34 @@ namespace ContaBancaria.Entities
             Telefone = telefone;
             Endereco = endereco;
             DataNascimento = dataNascimento ?? default;
+            TipoConta = tipoConta;
+            Conta = CriarConta(tipoConta);
+        }
 
-            
-            Conta = tipoConta switch
+
+
+
+        public static Cliente Create(
+            string primeiroNome,
+            string sobrenome,
+            string cpf,
+            string telefone,
+            string logradouro,
+            ETiposContas tipoConta = ETiposContas.ContaPoupanca,
+            DateTime? dataNascimento = null
+        )
+        {
+            var nome = Nome.Create(primeiroNome, sobrenome);
+            var cpfVo = Cpf.Create(cpf);
+            var telefoneVo = Telefone.Create(telefone);
+            var enderecoVo = Endereço.Create(logradouro);
+
+            return new Cliente(nome, cpfVo, telefoneVo, enderecoVo, tipoConta, dataNascimento);
+        }
+
+        private Conta CriarConta(ETiposContas tipoConta)
+        {
+            return tipoConta switch
             {
                 ETiposContas.ContaCorrente => new ContaCorrente
                 {
@@ -54,27 +96,9 @@ namespace ContaBancaria.Entities
                 }
             };
         }
-
-        
-        public static Cliente Create(
-            string primeiroNome,
-            string sobrenome,
-            string cpf,
-            string telefone,
-            string logradouro,
-            ETiposContas tipoConta = ETiposContas.ContaPoupanca,
-            DateTime? dataNascimento = null
-        )
-        {
-            var nome = Nome.Create(primeiroNome, sobrenome);
-            var cpfVo = Cpf.Create(cpf);
-            var telefoneVo = Telefone.Create(telefone);
-            var enderecoVo = Endereço.Create(logradouro);
-
-            return new Cliente(nome, cpfVo, telefoneVo, enderecoVo, tipoConta, dataNascimento);
-        }
     }
 }
+
 
 
     

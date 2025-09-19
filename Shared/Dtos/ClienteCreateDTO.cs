@@ -8,7 +8,7 @@ namespace ContaBancaria.Shared.Dtos
 {
     public class ClienteCreateDTO
     {
-        public string Nome { get; set; } = string.Empty;
+    public string Nome { get; set; } = string.Empty;
     public string Cpf { get; set; } = string.Empty;
     public string Telefone { get; set; } = string.Empty;
     public string Endereco { get; set; } = string.Empty;
