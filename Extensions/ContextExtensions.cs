@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
+using ContaBancaria.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ContaBancaria.Extensions
@@ -10,7 +8,7 @@ namespace ContaBancaria.Extensions
     {
         public static void DataContextConfigurations(this WebApplicationBuilder builder)
         {
-            builder.Services.AddDbContext<Data.AppDbContext>(options =>
+            builder.Services.AddDbContext<AppDbContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
             });

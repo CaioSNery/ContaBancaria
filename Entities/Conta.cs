@@ -17,6 +17,8 @@ namespace ContaBancaria.Entities
         public bool CartaoDebito { get; protected set; } = false;
         public string? Pix { get; set; }
         public DateTime DataAbertura { get; set; }
+        public Guid ClienteId { get; set; }
+        public Cliente Cliente { get; set; } = null!;
         public ETiposContas TipoConta { get; set; }
 
         public string GerarNumeroConta()

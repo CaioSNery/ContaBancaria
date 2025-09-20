@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using ContaBancaria.Data;
 using ContaBancaria.Entities;
 using ContaBancaria.Shared.Dtos;
@@ -12,29 +13,32 @@ namespace ContaBancaria.Repositories
     public class ClienteRepository : IClienteRepository
     {
         private readonly AppDbContext _context;
+        private readonly IMapper _mapper;
 
-        public ClienteRepository(AppDbContext context)
+        public ClienteRepository(AppDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public async Task<Cliente> AdicionarClienteAsync(Cliente cliente)
+        public async Task<Cliente> AdicionarClienteAsync(ClienteCreateDTO clientedto)
         {
+            var cliente = _mapper.Map<Cliente>(clientedto);
             await _context.Clientes.AddAsync(cliente);
             await _context.SaveChangesAsync();
             return cliente;
         }
 
-        public async Task<bool> AtualizarClienteAsync(Guid id, ClienteUpdateDTO dto)
+        public async Task<ClienteUpdateDTO?> AtualizarClienteAsync(Guid id, ClienteUpdateDTO dto)
         {
             var cliente = await _context.Clientes.FindAsync(id);
             if (cliente == null)
-                return false;
+                return null;
 
-            cliente.AtualizarDados(dto.PrimeiroNome, dto.Sobrenome, dto.Cpf, dto.DataNascimento);
+            _mapper.Map(dto, cliente);
             
             await _context.SaveChangesAsync();
-            return true;
+            return _mapper.Map<ClienteUpdateDTO>(cliente);
         }
 
         public async Task<bool> AtualizarTipoDeContasAsync(Guid id, ContaUpdateDTO contadto)

@@ -13,8 +13,11 @@ namespace ContaBancaria.Entities
         public DateTime DataNascimento { get; set; }
         public Telefone Telefone { get; private set; }
         public Endereço Endereco { get; private set; }
+        public Senha Senha { get; private set; }
         public Conta Conta { get; private set; }
         public ETiposContas TipoConta { get; private set; }
+
+        public ICollection<Conta> Contas { get; set; } = new List<Conta>();
 
         public void AtualizarDados(string primeiroNome, string sobrenome, string cpf, DateTime dataNascimento)
         {
@@ -38,6 +41,7 @@ namespace ContaBancaria.Entities
             Cpf cpf,
             Telefone telefone,
             Endereço endereco,
+            Senha senha,
             ETiposContas tipoConta = ETiposContas.ContaPoupanca,
             DateTime? dataNascimento = null
         ) : base(Guid.NewGuid())
@@ -46,6 +50,7 @@ namespace ContaBancaria.Entities
             Cpf = cpf;
             Telefone = telefone;
             Endereco = endereco;
+            Senha = senha;
             DataNascimento = dataNascimento ?? default;
             TipoConta = tipoConta;
             Conta = CriarConta(tipoConta);
@@ -59,6 +64,7 @@ namespace ContaBancaria.Entities
             string sobrenome,
             string cpf,
             string telefone,
+            string senha,
             string logradouro,
             ETiposContas tipoConta = ETiposContas.ContaPoupanca,
             DateTime? dataNascimento = null
@@ -66,10 +72,11 @@ namespace ContaBancaria.Entities
         {
             var nome = Nome.Create(primeiroNome, sobrenome);
             var cpfVo = Cpf.Create(cpf);
+            var senhaVo = Senha.Create(senha);
             var telefoneVo = Telefone.Create(telefone);
             var enderecoVo = Endereço.Create(logradouro);
 
-            return new Cliente(nome, cpfVo, telefoneVo, enderecoVo, tipoConta, dataNascimento);
+            return new Cliente(nome, cpfVo, telefoneVo, enderecoVo, senhaVo, tipoConta, dataNascimento);
         }
 
         private Conta CriarConta(ETiposContas tipoConta)
