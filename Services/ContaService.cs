@@ -26,19 +26,6 @@ namespace ContaBancaria.Services
             return true;
         }
 
-        public async Task<bool> FazerDepositoPixAsync(string chavePix, decimal valor)
-        {
-            var cliente = await _contaRepository.ObterClientePorChavePixAsync(chavePix);
-            var conta = cliente?.Contas.FirstOrDefault(c => c.Pix == chavePix);
-
-            if (conta == null)
-                return false;
-
-            conta.Saldo += valor;
-            await _contaRepository.AtualizarContaAsync(conta);
-            return true;
-        }
-
         public async Task<bool> FazerSaqueAsync(string numeroConta, decimal valor)
         {
             var conta = await _contaRepository.ObterContaPorNumeroAsync(numeroConta);

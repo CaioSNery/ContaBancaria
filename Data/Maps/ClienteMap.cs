@@ -26,6 +26,8 @@ namespace ContaBancaria.Data.Maps
 
             builder.Property(c => c.Telefone)
             .HasMaxLength(15);
+
+            
         }
     }
 }
