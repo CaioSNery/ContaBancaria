@@ -17,10 +17,10 @@ namespace ContaBancaria.ValueObject
 
             AddNotifications(new Contract<Endereço>()
                 .Requires()
-                .IsNotNullOrEmpty(Rua, "Rua", "Rua cannot be empty.")
-                .IsNotNullOrEmpty(Cidade, "Cidade", "Cidade cannot be empty.")
-                .IsNotNullOrEmpty(Estado, "Estado", "Estado cannot be empty.")
-                .IsNotNullOrEmpty(Cep, "Cep", "Cep cannot be empty.")
+                .IsNotNullOrEmpty(Rua, "Rua", "Rua não pode ser vazia.")
+                .IsNotNullOrEmpty(Cidade, "Cidade", "Cidade não pode ser vazia.")
+                .IsNotNullOrEmpty(Estado, "Estado", "Estado não pode ser vazio.")
+                .IsNotNullOrEmpty(Cep, "Cep", "Cep não pode ser vazio.")
             );
         }
         public static Endereço Create(string rua, string cidade = "", string estado = "", string cep = "")

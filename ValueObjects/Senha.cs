@@ -48,7 +48,7 @@ namespace ContaBancaria.ValueObjects
           char splitChar = '.')
         {
             if (string.IsNullOrEmpty(password))
-                throw new ArgumentException("Password cannot be null or empty.", nameof(password));
+                throw new ArgumentException("A senha não pode ser nula ou vazia.", nameof(password));
 
             password += Configuration.Secrets.PasswordSaltKey;
 

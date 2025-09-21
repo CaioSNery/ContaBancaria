@@ -15,7 +15,7 @@ namespace ContaBancaria.ValueObject
 
             AddNotifications(new Contract<Telefone>()
                 .Requires()
-                .IsNotNullOrEmpty(Numero, "Numero", "Numero cannot be empty.")
+                .IsNotNullOrEmpty(Numero, "Numero", "Numero não pode ser vazio.")
             );
         }
         public static Telefone Create(string numero)

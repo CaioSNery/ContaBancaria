@@ -32,10 +32,10 @@ namespace ContaBancaria.ValueObject
             if (string.IsNullOrWhiteSpace(value))
                 throw new ArgumentException("CPF cannot be empty.");
 
-            // Mantém uma cópia do valor original para checar o formato
+            
             var original = value.Trim();
 
-            // Remove formatação
+            
             value = original.Replace(".", "").Replace("-", "");
 
             if (value.Length != CpfLength || !value.All(char.IsDigit))
@@ -46,12 +46,12 @@ namespace ContaBancaria.ValueObject
 
 
 
-            return new Cpf(value); // sempre armazena "limpo"
+            return new Cpf(value);
         }
 
         public static bool IsValidCpf(string cpf)
         {
-            if (cpf.Distinct().Count() == 1) // Check for all digits being the same
+            if (cpf.Distinct().Count() == 1) 
                 return false;
             return true;
         }
