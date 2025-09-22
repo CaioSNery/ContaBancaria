@@ -26,6 +26,7 @@ namespace ContaBancaria.Data
             .HasValue<ContaCorrente>(Enums.ETiposContas.ContaCorrente)
             .HasValue<ContaPoupanca>(Enums.ETiposContas.ContaPoupanca)
             .HasValue<ContaSalario>(Enums.ETiposContas.ContaSalario);
+            
 
         }
     }

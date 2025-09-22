@@ -8,13 +8,18 @@ namespace ContaBancaria.Entities
 {
     public sealed class Cliente : Entity
     {
-        public Nome Nome { get; private set; }
-        public Cpf Cpf { get; private set; }
+       
+       private Cliente(): base(Guid.NewGuid())
+        {
+        }
+
+        public Nome Nome { get; private set; } = null!;
+        public Cpf Cpf { get; private set; } = null!;
         public DateTime DataNascimento { get; set; }
-        public Telefone Telefone { get; private set; }
-        public Endereço Endereco { get; private set; }
-        public Senha Senha { get; private set; }
-        public Conta Conta { get; private set; }
+        public Telefone Telefone { get; private set; } = null!;
+        public Endereço Endereco { get; private set; } = null!;
+        public Senha Senha { get; private set; } = null!;
+       
         public ETiposContas TipoConta { get; private set; }
 
         public ICollection<Conta> Contas { get; set; } = new List<Conta>();
@@ -31,7 +36,8 @@ namespace ContaBancaria.Entities
             if (TipoConta != tipoConta)
             {
                 TipoConta = tipoConta;
-                Conta = CriarConta(tipoConta);
+                var novaconta=CriarConta(tipoConta);
+                Contas.Add(novaconta);
             }
         }
 
@@ -53,7 +59,7 @@ namespace ContaBancaria.Entities
             Senha = senha;
             DataNascimento = dataNascimento ?? default;
             TipoConta = tipoConta;
-            Conta = CriarConta(tipoConta);
+            Contas.Add(CriarConta(tipoConta));
         }
 
 
@@ -81,27 +87,26 @@ namespace ContaBancaria.Entities
 
         private Conta CriarConta(ETiposContas tipoConta)
         {
-            return tipoConta switch
+            var conta = tipoConta switch
             {
-                ETiposContas.ContaCorrente => new ContaCorrente
+                ETiposContas.ContaCorrente => (Conta)new ContaCorrente
                 {
-                    Numero = Conta.GerarNumeroConta(),
                     Agencia = "0001",
                     DataAbertura = DateTime.Now
                 },
-                ETiposContas.ContaPoupanca => new ContaPoupanca
+                ETiposContas.ContaPoupanca => (Conta)new ContaPoupanca
                 {
-                    Numero = Conta.GerarNumeroConta(),
                     Agencia = "0001",
                     DataAbertura = DateTime.Now
                 },
-                _ => new ContaSalario
+                _ => (Conta)new ContaSalario
                 {
-                    Numero = Conta.GerarNumeroConta(),
                     Agencia = "0001",
                     DataAbertura = DateTime.Now
                 }
             };
+            conta.Numero = conta.GerarNumeroConta();
+            return conta;
         }
     }
 }

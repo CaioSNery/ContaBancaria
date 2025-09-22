@@ -8,6 +8,7 @@ namespace ContaBancaria.ValueObjects
 {
     public sealed class Senha : Shared.ValueObjects.ValueObject
     {
+        private Senha() { }
         #region Constants
         private const string Valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         private const string Especial = "!@#$%^&*()_+[]{}|;:,.<>?";

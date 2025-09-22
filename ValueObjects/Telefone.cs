@@ -8,6 +8,7 @@ namespace ContaBancaria.ValueObject
 {
     public sealed class Telefone : Shared.ValueObjects.ValueObject
     {
+        private Telefone() { }
         //como fazer um telefone
         public Telefone(string numero)
         {
@@ -22,7 +23,7 @@ namespace ContaBancaria.ValueObject
         {
             return new Telefone(numero);
         }
-        public string Numero { get; }
+        public string Numero { get; } = null!;
         
     }
 }

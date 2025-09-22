@@ -8,6 +8,7 @@ namespace ContaBancaria.ValueObject
 {
     public sealed class Endereço : Shared.ValueObjects.ValueObject
     {
+        private Endereço() { }
          public Endereço(string rua, string cidade, string estado, string cep)
         {
             Rua = rua;
@@ -28,10 +29,10 @@ namespace ContaBancaria.ValueObject
             return new Endereço(rua, cidade, estado, cep);
         }
 
-        public string Rua { get; }
-        public string Cidade { get; }
-        public string Estado { get; }
-        public string Cep { get; }
+        public string Rua { get; }= null!;
+        public string Cidade { get; }=null!;
+        public string Estado { get; } = null!;
+        public string Cep { get; } = null!;
 
 
     }

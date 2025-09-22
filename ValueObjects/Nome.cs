@@ -4,6 +4,8 @@ namespace ContaBancaria.ValueObjects
 {
     public sealed class Nome : Shared.ValueObjects.ValueObject
     {
+        private Nome() { }
+
         #region Constants
         public const int MinLength = 2;
         public const int MaxLength = 50;
@@ -41,8 +43,8 @@ namespace ContaBancaria.ValueObjects
 
         #region Properties
         public static implicit operator string(Nome nome) => nome.ToString();
-        public string PrimeiroNome { get; }
-        public string Sobrenome { get; }
+        public string PrimeiroNome { get; } = null!;
+        public string Sobrenome { get; } = null!;
 
         public override string ToString() => $"{PrimeiroNome} {Sobrenome}";
         #endregion
