@@ -22,12 +22,15 @@ var app = builder.Build();
 
 app.MapControllers();
 
- 
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapGet("/", () => "ContaBancaria API funcionando");
 
 app.UseHttpsRedirection();
 app.UseAuthorization();
